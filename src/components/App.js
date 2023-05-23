@@ -1,41 +1,16 @@
-//import logo from './logo.svg';
-//import './App.css';
-import logo from './images/logo.svg';
+import Footer from './Footer';
+import Header from './Header';
+import Main from './Main';
 
 function App() {
   return (
     <div className='App'>
       <div className='page'>
         <div className='page__content'>
-          <header className='header'>
-            <img src={logo} alt='Лого Место Россия' className='header__logo' />
-          </header>
-          <main className='content'>
-            <section className='profiles'>
-              <div className='profile'>
-                <div className='profile__common'>
-                  <div className='profile__avatar'>
-                    <button
-                      type='submit'
-                      className='profile__avatar-button opacity-button'
-                    ></button>
-                  </div>
+          <Header />
+          <Main />
+          <Footer />
 
-                  <div className='profile__info'>
-                    <h1 className='profile__name'>TestName</h1>
-                    <h2 className='profile__descr'>TestDescr</h2>
-                    <button type='button' className='profile__edit-button opacity-button'></button>
-                  </div>
-                </div>
-                <button type='button' className='profile__card-add-button opacity-button'></button>
-              </div>
-            </section>
-
-            <section className='cards'></section>
-          </main>
-          <footer className='footer'>
-            <p className='footer__copyright'>&copy; 2023 Mesto Russia</p>
-          </footer>
           <div className='popup popup_type_profile'>
             <div className='popup__container'>
               <h2 className='popup__title'>Редактировать профиль</h2>
