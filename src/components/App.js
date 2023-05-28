@@ -2,12 +2,32 @@ import Footer from './Footer';
 import Header from './Header';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
 
 function App() {
+  function handleEditAvatarClick() {
+    console.log('Не дави на меня!');
+    document.querySelector('.popup_type_avatar').classList.add('popup_opened');
+  }
+
+  function handleEditProfileClick() {
+    console.log('Ты мне солнце заслонил!');
+    document.querySelector('.popup_type_profile').classList.add('popup_opened');
+  }
+
+  function handleAddPlaceClick() {
+    console.log('Ну ты чего, нормально же общались!');
+    document.querySelector('.popup_type_card').classList.add('popup_opened');
+  }
+
   return (
     <div className='page'>
       <Header />
-      <Main />
+      <Main
+        onEditProfile={handleEditAvatarClick}
+        onAddPlace={handleAddPlaceClick}
+        onEditAvatar={handleEditProfileClick}
+      />
       <Footer />
 
       <PopupWithForm
@@ -96,15 +116,6 @@ function App() {
         title='Вы уверены?'
         buttonName='Да'
       ></PopupWithForm>
-
-      <div className='popup popup_type_img popup_background-color_black-09'>
-        <div className='popup__img-container'>
-          <img src='#' alt='' className='popup__card-img' />
-          <p className='popup__text-img '>Горный Алтай</p>
-
-          <button type='button' className='popup__close-button opacity-button'></button>
-        </div>
-      </div>
     </div>
   );
 }

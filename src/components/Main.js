@@ -1,20 +1,5 @@
 import React from 'react';
-function Main() {
-  function handleEditAvatarClick() {
-    console.log('Не дави на меня!');
-    document.querySelector('.popup_type_avatar').classList.add('popup_opened');
-  }
-
-  function handleEditProfileClick() {
-    console.log('Ты мне солнце заслонил!');
-    document.querySelector('.popup_type_profile').classList.add('popup_opened');
-  }
-
-  function handleAddPlaceClick() {
-    console.log('Ну ты чего, нормально же общались!');
-    document.querySelector('.popup_type_card').classList.add('popup_opened');
-  }
-
+function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
   return (
     <main className='content'>
       <section className='profiles'>
@@ -23,7 +8,7 @@ function Main() {
             <div className='profile__avatar'>
               <button
                 type='submit'
-                onClick={handleEditAvatarClick}
+                onClick={onEditProfile}
                 className='profile__avatar-button opacity-button'
               ></button>
             </div>
@@ -33,14 +18,14 @@ function Main() {
               <h2 className='profile__descr'>TestDescr</h2>
               <button
                 type='button'
-                onClick={handleEditProfileClick}
+                onClick={onEditAvatar}
                 className='profile__edit-button opacity-button'
               ></button>
             </div>
           </div>
           <button
             type='button'
-            onClick={handleAddPlaceClick}
+            onClick={onAddPlace}
             className='profile__card-add-button opacity-button'
           ></button>
         </div>
