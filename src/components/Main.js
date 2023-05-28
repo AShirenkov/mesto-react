@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './Card';
 import api from '../utils/Api';
-function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
+function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
   const [userName, setUserName] = React.useState('');
   const [userDescription, setUserDescription] = React.useState('');
   const [userAvatar, setUserAvatar] = React.useState('');
@@ -23,7 +23,6 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
       .getInitialCards()
       .then(values => {
         setСards(values);
-        console.log(values);
       })
       .catch(err => {
         console.log(err);
@@ -64,7 +63,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
 
       <section className='cards'>
         {cards.map(card => (
-          <Card card={card} />
+          <Card key={card._id} card={card} onCardClick={onCardClick} />
         ))}
       </section>
     </main>

@@ -11,6 +11,8 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
 
+  const [selectedCard, setSelectedCard] = React.useState({});
+
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
@@ -26,6 +28,11 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setSelectedCard({});
+  }
+  function handleCardClick(card) {
+    console.log(card._id);
+    setSelectedCard(card);
   }
 
   return (
@@ -35,6 +42,7 @@ function App() {
         onEditProfile={handleEditAvatarClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditProfileClick}
+        onCardClick={handleCardClick}
       />
       <Footer />
 
@@ -130,6 +138,11 @@ function App() {
         title='Вы уверены?'
         buttonName='Да'
       ></PopupWithForm>
+      <ImagePopup
+        //title, name, children
+        card={selectedCard}
+        onClose={closeAllPopups}
+      ></ImagePopup>
     </div>
   );
 }

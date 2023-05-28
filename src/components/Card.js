@@ -1,8 +1,17 @@
 import React from 'react';
-function Card({ card }) {
+function Card({ card, onCardClick }) {
+  function handleClick() {
+    //console.log(card._id);
+    onCardClick(card);
+  }
   return (
-    <div key={card._id} className='card'>
-      <img src={card.link} alt={card.name} className='card__img  opacity-button' />
+    <div className='card'>
+      <img
+        src={card.link}
+        alt={card.name}
+        onClick={handleClick}
+        className='card__img  opacity-button'
+      />
       <h2 className='card__title'>{card.name}</h2>
       <div className='card__like-container'>
         <button type='button' className='card__like opacity-button'></button>
