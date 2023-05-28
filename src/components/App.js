@@ -1,3 +1,5 @@
+//import { useState } from 'react';
+import React from 'react';
 import Footer from './Footer';
 import Header from './Header';
 import Main from './Main';
@@ -5,19 +7,25 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 
 function App() {
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+
   function handleEditAvatarClick() {
-    console.log('Не дави на меня!');
-    document.querySelector('.popup_type_avatar').classList.add('popup_opened');
+    setIsEditAvatarPopupOpen(true);
   }
 
   function handleEditProfileClick() {
-    console.log('Ты мне солнце заслонил!');
-    document.querySelector('.popup_type_profile').classList.add('popup_opened');
+    setIsEditProfilePopupOpen(true);
   }
 
   function handleAddPlaceClick() {
-    console.log('Ну ты чего, нормально же общались!');
-    document.querySelector('.popup_type_card').classList.add('popup_opened');
+    setIsAddPlacePopupOpen(true);
+  }
+  function closeAllPopups() {
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
   }
 
   return (
@@ -35,6 +43,8 @@ function App() {
         name='profile'
         title='Редактировать профиль'
         buttonName='Сохранить'
+        isOpened={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
       >
         <input
           required
@@ -67,6 +77,8 @@ function App() {
         name='avatar'
         title='Обновить аватар'
         buttonName='Сохранить'
+        isOpened={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
       >
         <input
           required
@@ -85,6 +97,8 @@ function App() {
         name='card'
         title='Новое место'
         buttonName='Создать'
+        isOpened={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
       >
         <input
           required
