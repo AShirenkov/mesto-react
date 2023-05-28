@@ -1,5 +1,24 @@
 import React from 'react';
+
+import api from '../utils/Api';
 function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
+  const [userName, setUserName] = React.useState('');
+  const [userDescription, setUserDescription] = React.useState('');
+  const [userAvatar, setUserAvatar] = React.useState('');
+
+  React.useEffect(() => {
+    api
+      .getMyUser()
+      .then(result => {
+        setUserName(result.name);
+        setUserDescription(result.about);
+        setUserAvatar(result.avatar);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  });
+
   return (
     <main className='content'>
       <section className='profiles'>
@@ -10,12 +29,13 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
                 type='submit'
                 onClick={onEditProfile}
                 className='profile__avatar-button opacity-button'
+                style={{ backgroundImage: `url(${userAvatar})` }}
               ></button>
             </div>
 
             <div className='profile__info'>
-              <h1 className='profile__name'>TestName</h1>
-              <h2 className='profile__descr'>TestDescr</h2>
+              <h1 className='profile__name'>{userName}</h1>
+              <h2 className='profile__descr'>{userDescription}</h2>
               <button
                 type='button'
                 onClick={onEditAvatar}
