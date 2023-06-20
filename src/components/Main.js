@@ -3,10 +3,9 @@ import Card from './Card';
 import api from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
-  // const [userName, setUserName] = React.useState('');
-  //const [userDescription, setUserDescription] = React.useState('');
-  //const [userAvatar, setUserAvatar] = React.useState('');
   const [cards, setСards] = React.useState([]);
+
+  const currentUser = React.useContext(CurrentUserContext);
 
   React.useEffect(() => {
     api
@@ -18,7 +17,6 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
         console.log(err);
       });
   }, []);
-  const currentUser = React.useContext(CurrentUserContext);
   return (
     <main className='content'>
       <section className='profiles'>
