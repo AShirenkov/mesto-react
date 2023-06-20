@@ -17,6 +17,7 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({});
 
   const [currentUser, setCurrentUser] = React.useState({});
+  const [cards, setСards] = React.useState([]);
 
   React.useEffect(() => {
     api
@@ -28,6 +29,30 @@ function App() {
         console.log(err);
       });
   }, []);
+  React.useEffect(() => {
+    api
+      .getInitialCards()
+      .then(values => {
+        setСards(values);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
+  function handleCardLike(card) {
+    // Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+    if (isLiked) {
+      api.removeLike(card._id).then(newCard => {
+        setСards(state => state.map(c => (c._id === card._id ? newCard : c)));
+      });
+    } else {
+      api.setLike(card._id).then(newCard => {
+        setСards(state => state.map(c => (c._id === card._id ? newCard : c)));
+      });
+    }
+  }
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -60,6 +85,8 @@ function App() {
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditProfileClick}
           onCardClick={handleCardClick}
+          onCardLike={handleCardLike}
+          cards={cards}
         />
         <Footer />
 
