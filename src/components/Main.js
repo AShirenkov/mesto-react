@@ -1,24 +1,14 @@
 import React from 'react';
 import Card from './Card';
 import api from '../utils/Api';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
+  // const [userName, setUserName] = React.useState('');
+  //const [userDescription, setUserDescription] = React.useState('');
+  //const [userAvatar, setUserAvatar] = React.useState('');
   const [cards, setСards] = React.useState([]);
 
   React.useEffect(() => {
-    api
-      .getMyUser()
-      .then(values => {
-        setUserName(values.name);
-        setUserDescription(values.about);
-        setUserAvatar(values.avatar);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-
     api
       .getInitialCards()
       .then(values => {
@@ -28,7 +18,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
         console.log(err);
       });
   }, []);
-
+  const currentUser = React.useContext(CurrentUserContext);
   return (
     <main className='content'>
       <section className='profiles'>
@@ -39,13 +29,13 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
                 type='submit'
                 onClick={onEditProfile}
                 className='profile__avatar-button opacity-button'
-                style={{ backgroundImage: `url(${userAvatar})` }}
+                style={{ backgroundImage: `url(${currentUser.avatar})` }}
               ></button>
             </div>
 
             <div className='profile__info'>
-              <h1 className='profile__name'>{userName}</h1>
-              <h2 className='profile__descr'>{userDescription}</h2>
+              <h1 className='profile__name'>{currentUser.name}</h1>
+              <h2 className='profile__descr'>{currentUser.about}</h2>
               <button
                 type='button'
                 onClick={onEditAvatar}
