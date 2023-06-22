@@ -10,11 +10,7 @@ function ImagePopup({ card, onClose }) {
         <img src={card.link} alt={card.name} className='popup__card-img' />
         <p className='popup__text-img '>{card.name}</p>
 
-        <button
-          type='button'
-          onClick={onClose}
-          className='popup__close-button opacity-button'
-        ></button>
+        <button type='button' onClick={onClose} className='popup__close-button opacity-button' />
       </div>
     </div>
   );

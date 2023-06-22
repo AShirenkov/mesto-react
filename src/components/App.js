@@ -167,8 +167,8 @@ function App() {
           name='remove-card'
           title='Вы уверены?'
           buttonName='Да'
-        ></PopupWithForm>
-        <ImagePopup card={selectedCard} onClose={closeAllPopups}></ImagePopup>
+        />
+        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       </div>
     </CurrentUserContext.Provider>
   );

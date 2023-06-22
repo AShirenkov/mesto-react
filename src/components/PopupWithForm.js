@@ -10,11 +10,7 @@ function PopupWithForm({ title, name, children, buttonName, isOpened, onClose, o
             {buttonName}
           </button>
         </form>
-        <button
-          type='button'
-          onClick={onClose}
-          className='popup__close-button opacity-button'
-        ></button>
+        <button type='button' onClick={onClose} className='popup__close-button opacity-button' />
       </div>
     </div>
   );

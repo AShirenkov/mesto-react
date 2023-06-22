@@ -24,7 +24,7 @@ function Main({
                 onClick={onEditProfile}
                 className='profile__avatar-button opacity-button'
                 style={{ backgroundImage: `url(${currentUser.avatar})` }}
-              ></button>
+              />
             </div>
 
             <div className='profile__info'>
@@ -34,14 +34,14 @@ function Main({
                 type='button'
                 onClick={onEditAvatar}
                 className='profile__edit-button opacity-button'
-              ></button>
+              />
             </div>
           </div>
           <button
             type='button'
             onClick={onAddPlace}
             className='profile__card-add-button opacity-button'
-          ></button>
+          />
         </div>
       </section>
 
