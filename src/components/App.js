@@ -8,6 +8,8 @@ import ImagePopup from './ImagePopup';
 import api from '../utils/Api';
 import EditProfilePopup from './EditProfilePopup';
 
+import EditAvatarPopup from './EditAvatarPopup';
+
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function App() {
@@ -70,11 +72,26 @@ function App() {
       .then(values => {
         setCurrentUser(values);
         //popupUserInfo.close();
+        closeAllPopups();
       })
       .catch(err => {
         console.log(err);
       });
   }
+
+  function handleUpdateAvatar(objAvatar) {
+    api
+      .setUserAvatar(objAvatar)
+      .then(values => {
+        setCurrentUser(values);
+        //popupUserAvatar.close();
+        closeAllPopups();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
@@ -117,26 +134,11 @@ function App() {
           onUpdateUser={handleUpdateUser}
         />
 
-        <PopupWithForm
-          //title, name, children
-          name='avatar'
-          title='Обновить аватар'
-          buttonName='Сохранить'
-          isOpened={isEditAvatarPopupOpen}
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
-        >
-          <input
-            required
-            name='linkAvatar'
-            type='url'
-            placeholder='Ссылка на аватар'
-            className='popup__input-text popup__input-text_type_link-Avatar'
-          />
-          <span className='popup__input-text-error popup__input-text-error_type_linkAvatar'>
-            Введите адрес картинки
-          </span>
-        </PopupWithForm>
-
+          onUpdateAvatar={handleUpdateAvatar}
+        />
         <PopupWithForm
           //title, name, children
           name='card'
