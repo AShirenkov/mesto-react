@@ -10,12 +10,24 @@ class Api {
     }
     return Promise.reject(`Ошибка сервера: ${res.status}`);
   }
+  //Нужно оптимизировать позже . убрать описание вызова _checkResponse в каждой точке
+  // _request(url, options) {
+
+  //   return fetch(url, options).then(this._checkResponse);
+  // }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, { headers: this._headers }).then(this._checkResponse);
+    // return this._request(`${this._baseUrl}/cards`, { headers: this._headers }).then(
+    //   this._checkResponse
+    // );
   }
+
   getMyUser() {
     return fetch(`${this._baseUrl}/users/me`, { headers: this._headers }).then(this._checkResponse);
+    // return this._request(`${this._baseUrl}/users/me`, { headers: this._headers }).then(
+    //   this._checkResponse
+    // );
   }
 
   setUserInfo(obj) {
