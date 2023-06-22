@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from './Card';
-//import api from '../utils/Api';
+
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 function Main({
   onEditProfile,
@@ -12,17 +12,6 @@ function Main({
   onCardDelete
 }) {
   const currentUser = React.useContext(CurrentUserContext);
-
-  /*React.useEffect(() => {
-    api
-      .getInitialCards()
-      .then(values => {
-        setСards(values);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);*/
 
   return (
     <main className='content'>

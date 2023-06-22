@@ -1,21 +1,9 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
-//import { CurrentUserContext } from '../contexts/CurrentUserContext';
-
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
   const [name, setName] = React.useState('');
   const [link, setLink] = React.useState('');
-
-  //   const [name, setName] = React.useState('');
-  //   const [description, setDescription] = React.useState('');
-
-  //   //const currentUser = React.useContext(CurrentUserContext);
-
-  //   React.useEffect(() => {
-  //     setName(currentUser.name);
-  //     setDescription(currentUser.about);
-  //   }, [currentUser]);
 
   function handleChangeName(evt) {
     setName(evt.target.value);
