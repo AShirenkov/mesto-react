@@ -4,7 +4,7 @@ class Api {
     this._headers = headers;
   }
 
-  _resFromServer(res) {
+  _checkResponse(res) {
     if (res.ok) {
       return res.json();
     }
@@ -12,10 +12,10 @@ class Api {
   }
 
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, { headers: this._headers }).then(this._resFromServer);
+    return fetch(`${this._baseUrl}/cards`, { headers: this._headers }).then(this._checkResponse);
   }
   getMyUser() {
-    return fetch(`${this._baseUrl}/users/me`, { headers: this._headers }).then(this._resFromServer);
+    return fetch(`${this._baseUrl}/users/me`, { headers: this._headers }).then(this._checkResponse);
   }
 
   setUserInfo(obj) {
@@ -23,14 +23,14 @@ class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify(obj)
-    }).then(this._resFromServer);
+    }).then(this._checkResponse);
   }
   setUserAvatar(obj) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify(obj)
-    }).then(this._resFromServer);
+    }).then(this._checkResponse);
   }
 
   sendNewCard(obj) {
@@ -39,27 +39,27 @@ class Api {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify(obj)
-    }).then(this._resFromServer);
+    }).then(this._checkResponse);
   }
 
   removeCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: this._headers
-    }).then(this._resFromServer);
+    }).then(this._checkResponse);
   }
 
   removeLike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'DELETE',
       headers: this._headers
-    }).then(this._resFromServer);
+    }).then(this._checkResponse);
   }
   setLike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'PUT',
       headers: this._headers
-    }).then(this._resFromServer);
+    }).then(this._checkResponse);
   }
 }
 
