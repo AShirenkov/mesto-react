@@ -10,6 +10,8 @@ import EditProfilePopup from './EditProfilePopup';
 
 import EditAvatarPopup from './EditAvatarPopup';
 
+import AddPlacePopup from './AddPlacePopup';
+
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function App() {
@@ -20,7 +22,7 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({});
 
   const [currentUser, setCurrentUser] = React.useState({});
-  const [cards, setСards] = React.useState([]);
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
     api
@@ -36,7 +38,7 @@ function App() {
     api
       .getInitialCards()
       .then(values => {
-        setСards(values);
+        setCards(values);
       })
       .catch(err => {
         console.log(err);
@@ -48,11 +50,11 @@ function App() {
 
     if (isLiked) {
       api.removeLike(card._id).then(newCard => {
-        setСards(state => state.map(c => (c._id === card._id ? newCard : c)));
+        setCards(state => state.map(c => (c._id === card._id ? newCard : c)));
       });
     } else {
       api.setLike(card._id).then(newCard => {
-        setСards(state => state.map(c => (c._id === card._id ? newCard : c)));
+        setCards(state => state.map(c => (c._id === card._id ? newCard : c)));
       });
     }
   }
@@ -60,7 +62,7 @@ function App() {
   function handleCardDelete(card) {
     api
       .removeCard(card._id)
-      .then(setСards(cards.filter(i => i._id !== card._id)))
+      .then(setCards(cards.filter(i => i._id !== card._id)))
       .catch(err => {
         console.log(err);
       });
@@ -90,6 +92,21 @@ function App() {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  function handleAddPlaceSubmit(objCard) {
+    api
+      .sendNewCard(objCard)
+      .then(values => {
+        setCards([values, ...cards]);
+        closeAllPopups();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    // .finally(() => {
+    //   popupAddCard.toggleSubmitButtonDescription();
+    // });
   }
 
   function handleEditAvatarClick() {
@@ -139,37 +156,11 @@ function App() {
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
         />
-        <PopupWithForm
-          //title, name, children
-          name='card'
-          title='Новое место'
-          buttonName='Создать'
-          isOpened={isAddPlacePopupOpen}
+        <AddPlacePopup
+          isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
-        >
-          <input
-            required
-            name='name'
-            type='text'
-            placeholder='Название'
-            minLength='2'
-            maxLength='30'
-            className='popup__input-text popup__input-text_type_name-place'
-          />
-          <span className='popup__input-text-error popup__input-text-error_type_name'>
-            Вы пропустили это поле
-          </span>
-          <input
-            required
-            name='link'
-            type='url'
-            placeholder='Ссылка на картинку'
-            className='popup__input-text popup__input-text_type_url-place'
-          />
-          <span className='popup__input-text-error popup__input-text-error_type_link'>
-            Введите адрес сайта
-          </span>
-        </PopupWithForm>
+          onAddPlace={handleAddPlaceSubmit}
+        />
 
         <PopupWithForm
           //title, name, children
@@ -177,11 +168,7 @@ function App() {
           title='Вы уверены?'
           buttonName='Да'
         ></PopupWithForm>
-        <ImagePopup
-          //title, name, children
-          card={selectedCard}
-          onClose={closeAllPopups}
-        ></ImagePopup>
+        <ImagePopup card={selectedCard} onClose={closeAllPopups}></ImagePopup>
       </div>
     </CurrentUserContext.Provider>
   );
