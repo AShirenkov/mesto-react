@@ -6,6 +6,7 @@ import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import api from '../utils/Api';
+import EditProfilePopup from './EditProfilePopup';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
@@ -63,6 +64,17 @@ function App() {
       });
   }
 
+  function handleUpdateUser(objUser) {
+    api
+      .setUserInfo(objUser)
+      .then(values => {
+        setCurrentUser(values);
+        //popupUserInfo.close();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
@@ -99,40 +111,11 @@ function App() {
           cards={cards}
         />
         <Footer />
-
-        <PopupWithForm
-          //title, name, chilbuttonNamedren
-          name='profile'
-          title='Редактировать профиль'
-          buttonName='Сохранить'
-          isOpened={isEditProfilePopupOpen}
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
-        >
-          <input
-            required
-            name='nameProfile'
-            type='text'
-            placeholder='Имя'
-            minLength='2'
-            maxLength='40'
-            className='popup__input-text popup__input-text_type_name'
-          />
-          <span className='popup__input-text-error popup__input-text-error_type_nameProfile'>
-            111
-          </span>
-          <input
-            required
-            name='descriptionProfile'
-            type='text'
-            placeholder='Род деятельности'
-            minLength='2'
-            maxLength='200'
-            className='popup__input-text popup__input-text_type_description'
-          />
-          <span className='popup__input-text-error popup__input-text-error_type_descriptionProfile'>
-            111
-          </span>
-        </PopupWithForm>
+          onUpdateUser={handleUpdateUser}
+        />
 
         <PopupWithForm
           //title, name, children
