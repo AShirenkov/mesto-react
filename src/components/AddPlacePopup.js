@@ -45,7 +45,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         minLength='2'
         maxLength='30'
         className='popup__input-text popup__input-text_type_name-place'
-        value={name}
+        value={name || ''}
         onChange={handleChangeName}
       />
       <span className='popup__input-text-error popup__input-text-error_type_name'>
@@ -57,7 +57,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         type='url'
         placeholder='Ссылка на картинку'
         className='popup__input-text popup__input-text_type_url-place'
-        value={link}
+        value={link || ''}
         onChange={handleChangeLink}
       />
       <span className='popup__input-text-error popup__input-text-error_type_link'>
