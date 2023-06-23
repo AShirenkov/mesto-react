@@ -173,12 +173,7 @@ function App() {
           onAddPlace={handleAddPlaceSubmit}
         />
 
-        <PopupWithForm
-          //title, name, children
-          name='remove-card'
-          title='Вы уверены?'
-          buttonName='Да'
-        />
+        <PopupWithForm name='remove-card' title='Вы уверены?' buttonName='Да' />
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       </div>
     </CurrentUserContext.Provider>
